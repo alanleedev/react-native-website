@@ -1,0 +1,218 @@
+---
+title: 'React Native 0.85 - New Animation Backend, TextInput Selection Data, New Jest Preset Package'
+authors:
+  [
+    alanleedev,
+    CalixTang,
+    zoontek,
+    gabrieldonadel,
+    bartlomiejbloniarz,
+    coado,
+    zeyap,
+    SamuelSusla,
+  ]
+tags: [announcement, release]
+date: 2026-04-07
+---
+
+# React Native 0.85 - New Animation Backend, TextInput Selection Data, New Jest Preset Package
+
+Today we are excited to release React Native 0.85!
+
+This release includes the New Animation Backend, adds selection data to TextInput `onChange` events, moves the Jest preset to a dedicated package, and includes many other improvements and fixes.
+
+### Highlights
+
+- [New Animation Backend](/blog/2026/04/07/react-native-0.85#new-animation-backend)
+- [React Native DevTools Improvements](/blog/2026/04/07/react-native-0.85#react-native-devtools-improvements)
+- [Metro TLS Support](/blog/2026/04/07/react-native-0.85#metro-tls-support)
+
+### Breaking Changes
+
+- [Jest Preset Moved to New Package](/blog/2026/04/07/react-native-0.85#jest-preset-moved-to-new-package)
+- [Dropped Support for EOL Node.js Versions](/blog/2026/04/07/react-native-0.85#dropped-support-for-eol-nodejs-versions)
+- [`StyleSheet.absoluteFillObject` Removed](/blog/2026/04/07/react-native-0.85#stylesheetabsolutefillobject-removed)
+- [Other Breaking Changes](/blog/2026/04/07/react-native-0.85#other-breaking-changes)
+
+<!--truncate-->
+
+## Highlights
+
+### New Animation Backend
+
+React Native 0.85 introduces the new Shared Animation Backend, built in collaboration with [Software Mansion](https://swmansion.com/). This is a new internal engine that powers how animations are applied under the hood for both Animated and Reanimated. By moving the main animation update logic to React Native core, Reanimated is able to land performance improvements that weren't possible before, and can ensure that the update reconciliation process is properly tested and will remain stable with future RN updates. In Animated, you can now animate layout props with native driver (the [limitation once stated here](/docs/animations#caveats) no longer applies).
+
+|                                              iOS                                              |                                                Android                                                |
+| :-------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| <img src="/blog/assets/0.85-animation-backend-ios.gif" alt="Animation Backend demo on iOS" /> | <img src="/blog/assets/0.85-animation-backend-android.gif" alt="Animation Backend demo on Android" /> |
+
+You can find more examples under [`react-native/packages/rn-tester/js/examples/AnimationBackend/`](https://github.com/facebook/react-native/tree/main/packages/rn-tester/js/examples/AnimationBackend).
+
+To opt in, enable `useSharedAnimatedBackend` and `cxxNativeAnimatedEnabled` in `ReactNativeFeatureFlags`.
+
+#### How to animate layout props
+
+With the new animation backend, you'll be able to animate Flexbox and position props with native driver in Animated.
+
+```jsx
+import {
+  Animated,
+  View,
+  Button,
+  useAnimatedValue,
+} from 'react-native';
+import {allowStyleProp} from 'react-native/Libraries/Animated/NativeAnimatedAllowlist';
+
+allowStyleProp('width');
+
+function MyComponent() {
+  const width = useAnimatedValue(100);
+
+  const toggle = () => {
+    Animated.timing(width, {
+      toValue: 300,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  return (
+    <>
+      <Animated.View
+        style={{width, height: 100, backgroundColor: 'blue'}}
+      />
+      <Button title="Expand" onPress={toggle} />
+    </>
+  );
+}
+```
+
+### React Native DevTools Improvements
+
+React Native DevTools received several improvements in this release:
+
+- **Multiple CDP connections**: React Native now supports multiple simultaneous Chrome DevTools Protocol connections, enabling clients such as React Native DevTools, VS Code, and AI agents to connect at the same time. This unlocks richer, composable tooling workflows without unexpectedly ending sessions.
+- **Native tabs on macOS**: We've updated the desktop app to compile for macOS 26, and have also enabled system-level tab handling for power users. Access via **Window > Merge All Windows**, when multiple DevTools windows are open.
+
+<img src="/blog/assets/0.85-devtools-macos-tabs.png" alt="DevTools native tabs on macOS" />
+
+- **Request payload previews**: After being disabled due to a regression, request body previews in the Network Panel are now restored on Android.
+
+### Metro TLS Support
+
+The Metro dev server can now accept a TLS configuration object, enabling HTTPS (and WSS for Fast Refresh) during development — useful for testing APIs that enforce secure connections.
+
+Configure it in `metro.config.js`:
+
+```js title="metro.config.js"
+const fs = require('fs');
+
+config.server.tls = {
+  ca: fs.readFileSync('path/to/ca'),
+  cert: fs.readFileSync('path/to/cert'),
+  key: fs.readFileSync('path/to/key'),
+};
+```
+
+<!-- alex ignore simple -->
+
+For local development, [mkcert](https://github.com/FiloSottile/mkcert) is a simple way to generate a locally-trusted certificate without browser warnings.
+
+## Breaking Changes
+
+### Jest Preset Moved to New Package
+
+React Native's Jest preset has been extracted from `react-native` into the new `@react-native/jest-preset`, reducing core package size and giving projects more flexibility in their testing setup.
+
+Update your `jest.config.js` with a one-line change:
+
+```diff title="jest.config.js"
+- preset: 'react-native',
++ preset: '@react-native/jest-preset',
+```
+
+### Dropped Support for EOL Node.js Versions
+
+React Native 0.85 drops support for end-of-life (EOL) Node.js versions (v21, v23) and releases before 20.19.4. Please ensure you are running a supported version of Node.js before upgrading.
+
+### `StyleSheet.absoluteFillObject` Removed
+
+The deprecated `StyleSheet.absoluteFillObject` API has been removed. Use `StyleSheet.absoluteFill` or define your own absolute positioning styles instead.
+
+```diff
+- const styles = StyleSheet.absoluteFillObject;
++ const styles = StyleSheet.absoluteFill;
+```
+
+### Other Breaking Changes
+
+#### General
+
+- Removed deprecated TypeScript type aliases — use the types directly.
+- `Pressable` no longer unmounts event listeners in hidden `Activity`.
+
+#### Android
+
+- Re-added `receiveTouches` to `RCTEventEmitter` with default no-op.
+- `ReactTextUpdate` is now internal.
+- Removed support for `ReactZIndexedViewGroup`.
+- Multiple classes deprecated or removed as legacy architecture cleanup.
+- Deprecated `UIManagerHelper` methods and classes.
+- Removed `CatalystInstanceImpl` and other legacy architecture classes.
+- Stubbed out `NativeViewHierarchyManager`.
+
+#### iOS
+
+- Deprecated `RCTHostRuntimeDelegate` and merged into `RCTHostDelegate`.
+- Fixed duplicate symbol error when using `React.XCFramework` (via `fmt` bump to 12.1.0).
+
+## Other Changes
+
+- **Metro** bumped to `^0.84.0`.
+- **React** updated to consume Hermes `250829098.0.10`.
+- **Yoga**: `YogaNode` migrated to Kotlin on Android.
+- **Accessibility**: Deprecated `AccessibilityInfo.setAccessibilityFocus` in favor of `AccessibilityInfo.sendAccessibilityEvent`.
+- **TypeScript**: Multiple utility type transformations (`$Values`, `mixed`, `$ReadOnly`, `$ReadOnlyArray`).
+- **View Transitions**: New feature flag `viewTransitionEnabled` created.
+- **Android Build**: Allow specifying dev server IP via Gradle property.
+- **Android Build**: Re-added `prefabPublishing=true` for building from source.
+- **iOS Build**: Added support for clang virtual file system in `React.XCFramework`.
+
+## Acknowledgements
+
+React Native 0.85 contains over 604 commits from 58 contributors. Thanks for all your hard work!
+
+<!--alex ignore special white-->
+
+We want to send a special thank you to those community members that shipped significant contributions in this release.
+
+- [Zeya Peng](https://github.com/zeyap), [Bartłomiej Błoniarz](https://github.com/bartlomiejbloniarz), and [Dawid Małecki](https://github.com/coado) for the Animated Backend
+- [Vitali Zaidman](https://github.com/vzaidman) for Metro TLS
+- [Moti Zilberman](https://github.com/motiz88) for Multiple CDP Connections
+- [Phil Pluckthun](https://github.com/kitten) and [Alex Hunt](https://github.com/huntie) for the Jest Preset migration
+
+Moreover, we also want to thank the additional authors that worked on documenting features in this release post:
+
+<!-- TODO: Add blog post co-authors -->
+
+## Upgrade to 0.85
+
+:::info
+
+0.85 is now the latest stable version of React Native and 0.82.x moves to unsupported. For more information see [React Native's support policy](https://github.com/reactwg/react-native-releases/blob/main/docs/support.md).
+
+:::
+
+#### Upgrading
+
+Please use the [React Native Upgrade Helper](https://react-native-community.github.io/upgrade-helper/) to view code changes between React Native versions for existing projects, in addition to the [Upgrading docs](/docs/upgrading).
+
+#### Create a new project
+
+```sh
+npx @react-native-community/cli@latest init MyProject --version latest
+```
+
+#### Expo
+
+If you use Expo, the next SDK, SDK 56, will include React Native 0.85.
