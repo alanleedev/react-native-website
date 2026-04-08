@@ -12,7 +12,7 @@ authors:
     SamuelSusla,
   ]
 tags: [announcement, release]
-date: 2026-04-06
+date: 2026-04-07
 ---
 
 # React Native 0.85 - New Animation Backend, TextInput Selection Data, New Jest Preset Package
@@ -23,16 +23,16 @@ This release includes the New Animation Backend, adds selection data to TextInpu
 
 ### Highlights
 
-- [New Animation Backend](/blog/2026/04/06/react-native-0.85#new-animation-backend)
-- [React Native DevTools Improvements](/blog/2026/04/06/react-native-0.85#react-native-devtools-improvements)
-- [Metro TLS Support](/blog/2026/04/06/react-native-0.85#metro-tls-support)
+- [New Animation Backend](/blog/2026/04/07/react-native-0.85#new-animation-backend)
+- [React Native DevTools Improvements](/blog/2026/04/07/react-native-0.85#react-native-devtools-improvements)
+- [Metro TLS Support](/blog/2026/04/07/react-native-0.85#metro-tls-support)
 
 ### Breaking Changes
 
-- [Jest Preset Moved to New Package](/blog/2026/04/06/react-native-0.85#jest-preset-moved-to-new-package)
-- [Dropped Support for EOL Node.js Versions](/blog/2026/04/06/react-native-0.85#dropped-support-for-eol-nodejs-versions)
-- [`StyleSheet.absoluteFillObject` Removed](/blog/2026/04/06/react-native-0.85#stylesheetabsolutefillobject-removed)
-- [Other Breaking Changes](/blog/2026/04/06/react-native-0.85#other-breaking-changes)
+- [Jest Preset Moved to New Package](/blog/2026/04/07/react-native-0.85#jest-preset-moved-to-new-package)
+- [Dropped Support for EOL Node.js Versions](/blog/2026/04/07/react-native-0.85#dropped-support-for-eol-nodejs-versions)
+- [`StyleSheet.absoluteFillObject` Removed](/blog/2026/04/07/react-native-0.85#stylesheetabsolutefillobject-removed)
+- [Other Breaking Changes](/blog/2026/04/07/react-native-0.85#other-breaking-changes)
 
 <!--truncate-->
 
@@ -215,4 +215,4 @@ npx @react-native-community/cli@latest init MyProject --version latest
 
 #### Expo
 
-If you use Expo, the next SDK, SDK 56, will be shipped with the next stable release of React Native: 0.85.
+If you use Expo, the next SDK, SDK 56, will include React Native 0.85.
