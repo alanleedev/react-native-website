@@ -42,19 +42,9 @@ This release includes the New Animation Backend, adds selection data to TextInpu
 
 React Native 0.85 introduces the new Shared Animation Backend, built in collaboration with [Software Mansion](https://swmansion.com/). This is a new internal engine that powers how animations are applied under the hood for both Animated and Reanimated. By moving the main animation update logic to React Native core, Reanimated is able to land performance improvements that weren't possible before, and can ensure that the update reconciliation process is properly tested and will remain stable with future RN updates. In Animated, you can now animate layout props with native driver (the [limitation once stated here](https://reactnative.dev/docs/animations#caveats) no longer applies).
 
-<!-- TODO: Add iOS demo video -->
-<!-- <p style={{textAlign: 'center'}}>
-  <video width={320} controls="controls" autoPlay>
-    <source type="video/mp4" src="/blog/assets/0.85-animation-backend-ios.mp4" />
-  </video>
-</p> -->
+<img src="/blog/assets/0.85-animation-backend-ios.gif" alt="Animation Backend demo on iOS" />
 
-<!-- TODO: Add Android demo video -->
-<!-- <p style={{textAlign: 'center'}}>
-  <video width={320} controls="controls" autoPlay>
-    <source type="video/mp4" src="/blog/assets/0.85-animation-backend-android.mp4" />
-  </video>
-</p> -->
+<img src="/blog/assets/0.85-animation-backend-android.gif" alt="Animation Backend demo on Android" />
 
 You can find more examples under [`react-native/packages/rn-tester/js/examples/AnimationBackend/`](https://github.com/facebook/react-native/tree/main/packages/rn-tester/js/examples/AnimationBackend).
 
@@ -104,8 +94,7 @@ React Native DevTools received several improvements in this release:
 - **Multiple CDP connections**: React Native now supports multiple simultaneous Chrome DevTools Protocol connections, enabling clients such as React Native DevTools, VS Code, and AI agents to connect at the same time. This unlocks richer, composable tooling workflows without unexpectedly ending sessions.
 - **Native tabs on macOS**: We've updated the desktop app to compile for macOS 26, and have also enabled system-level tab handling for power users. Access via **Window > Merge All Windows**, when multiple DevTools windows are open.
 
-<!-- TODO: Add DevTools macOS tabs screenshot -->
-<!-- <img src="/blog/assets/0.85-devtools-macos-tabs.png" alt="DevTools native tabs on macOS" /> -->
+<img src="/blog/assets/0.85-devtools-macos-tabs.png" alt="DevTools native tabs on macOS" />
 
 - **Request payload previews**: After being disabled due to a regression, request body previews in the Network Panel are now restored on Android.
 
