@@ -1,5 +1,5 @@
 ---
-title: 'React Native 0.85 - New Animation Backend, TextInput Selection Data, New Jest Preset Package'
+title: 'React Native 0.85 - New Animation Backend, New Jest Preset Package'
 authors:
   [
     alanleedev,
@@ -15,11 +15,11 @@ tags: [announcement, release]
 date: 2026-04-07
 ---
 
-# React Native 0.85 - New Animation Backend, TextInput Selection Data, New Jest Preset Package
+# React Native 0.85 - New Animation Backend, New Jest Preset Package
 
 Today we are excited to release React Native 0.85!
 
-This release includes the New Animation Backend, adds selection data to TextInput `onChange` events, moves the Jest preset to a dedicated package, and includes many other improvements and fixes.
+This release includes the New Animation Backend, moves the Jest preset to a dedicated package, and includes many other improvements and fixes.
 
 ### Highlights
 
