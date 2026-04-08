@@ -40,7 +40,7 @@ This release includes the New Animation Backend, adds selection data to TextInpu
 
 ### New Animation Backend
 
-React Native 0.85 introduces the new Shared Animation Backend, built in collaboration with [Software Mansion](https://swmansion.com/). This is a new internal engine that powers how animations are applied under the hood for both Animated and Reanimated. By moving the main animation update logic to React Native core, Reanimated is able to land performance improvements that weren't possible before, and can ensure that the update reconciliation process is properly tested and will remain stable with future RN updates. In Animated, you can now animate layout props with native driver (the [limitation once stated here](https://reactnative.dev/docs/animations#caveats) no longer applies).
+React Native 0.85 introduces the new Shared Animation Backend, built in collaboration with [Software Mansion](https://swmansion.com/). This is a new internal engine that powers how animations are applied under the hood for both Animated and Reanimated. By moving the main animation update logic to React Native core, Reanimated is able to land performance improvements that weren't possible before, and can ensure that the update reconciliation process is properly tested and will remain stable with future RN updates. In Animated, you can now animate layout props with native driver (the [limitation once stated here](/docs/animations#caveats) no longer applies).
 
 |                                              iOS                                              |                                                Android                                                |
 | :-------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
@@ -104,7 +104,7 @@ The Metro dev server can now accept a TLS configuration object, enabling HTTPS (
 
 Configure it in `metro.config.js`:
 
-```js
+```js title="metro.config.js"
 const fs = require('fs');
 
 config.server.tls = {
@@ -126,8 +126,7 @@ React Native's Jest preset has been extracted from `react-native` into the new `
 
 Update your `jest.config.js` with a one-line change:
 
-```diff
-// jest.config.js
+```diff title="jest.config.js"
 - preset: 'react-native',
 + preset: '@react-native/jest-preset',
 ```
@@ -210,7 +209,7 @@ Please use the [React Native Upgrade Helper](https://react-native-community.gith
 
 #### Create a new project
 
-```text
+```sh
 npx @react-native-community/cli@latest init MyProject --version latest
 ```
 
