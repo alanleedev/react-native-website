@@ -42,8 +42,8 @@ This release includes the New Animation Backend, adds selection data to TextInpu
 
 React Native 0.85 introduces the new Shared Animation Backend, built in collaboration with [Software Mansion](https://swmansion.com/). This is a new internal engine that powers how animations are applied under the hood for both Animated and Reanimated. By moving the main animation update logic to React Native core, Reanimated is able to land performance improvements that weren't possible before, and can ensure that the update reconciliation process is properly tested and will remain stable with future RN updates. In Animated, you can now animate layout props with native driver (the [limitation once stated here](https://reactnative.dev/docs/animations#caveats) no longer applies).
 
-| iOS | Android |
-| :-: | :-: |
+|                                              iOS                                              |                                              Android                                               |
+| :-------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
 | <img src="/blog/assets/0.85-animation-backend-ios.gif" alt="Animation Backend demo on iOS" /> | <img src="/blog/assets/0.85-animation-backend-android.gif" alt="Animation Backend demo on Android" /> |
 
 You can find more examples under [`react-native/packages/rn-tester/js/examples/AnimationBackend/`](https://github.com/facebook/react-native/tree/main/packages/rn-tester/js/examples/AnimationBackend).
